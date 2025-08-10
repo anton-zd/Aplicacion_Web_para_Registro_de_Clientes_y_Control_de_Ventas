@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parrillada App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen active">
+        <div class="container">
+            <div class="form-card">
+                <h2>Log In</h2>
+                <p class="subtitle">Enter your credentials to continue</p>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Enter username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter password" required>
+                    </div>
+                    
+                    <button type="submit" id="loginBtn" class="primary-btn">
+                        <span class="btn-text">Log In</span>
+                        <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
+                    </button>
+                </form>
+                
+                <div class="demo-credentials">
+                    <h4>Demo Credentials:</h4>
+                    <p>Username: <span class="credential">admin</span></p>
+                    <p>Password: <span class="credential">admin</span></p>
+                </div>
+                
+                <div id="errorMessage" class="error-message" style="display: none;">
+                    Invalid credentials. Please try again.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Screen -->
+    <div id="searchScreen" class="screen">
+        <div class="header">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="bx bx-user"></i>
+                </div>
+                <div class="user-details">
+                    <h3>Raul Zarate</h3>
+                    <p>Sales Representative</p>
+                </div>
+            </div>
+            <button id="logoutBtn" class="logout-btn">
+                <i class="bx bx-log-out"></i>
+            </button>
+        </div>
+        
+        <div class="container">
+            <div class="form-card">
+                <h2>Client Search</h2>
+                
+                <form id="searchForm">
+                    <div class="form-group">
+                        <label for="clientDni">DNI</label>
+                        <input type="text" id="clientDni" placeholder="Enter client DNI" required>
+                    </div>
+                    
+                    <!-- Campo de nombre del cliente (inicialmente oculto) -->
+                    <div id="clientNameGroup" class="form-group" style="display: none;">
+                        <label for="clientName">Client Name</label>
+                        <input type="text" id="clientName" placeholder="Client name will appear here" readonly>
+                    </div>
+                    
+                    <!-- Campos de Quantity y Payment Status (inicialmente ocultos) -->
+                    <div id="clientDetailsGroup" style="display: none;">
+                        <!-- Quantity and Price Row -->
+                        <div class="form-group-row quantity-price-row">
+                            <!-- Quantity Field -->
+                            <div class="form-group-half">
+                                <label for="clientQuantity">Quantity</label>
+                                <div class="quantity-container">
+                                    <button type="button" id="decreaseBtn" class="quantity-btn">
+                                        <i class="bx bx-minus"></i>
+                                    </button>
+                                    <input type="text" id="clientQuantity" value="0" readonly>
+                                    <button type="button" id="increaseBtn" class="quantity-btn">
+                                        <i class="bx bx-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Price Field -->
+                            <div class="form-group-half">
+                                <label for="clientPrice">Price</label>
+                                <input type="text" id="clientPrice" value="S/0" readonly>
+                            </div>
+                        </div>
+                        
+                        <!-- Payment Status and Payment Method Row -->
+                        <div class="form-group-row payment-row">
+                            <!-- Payment Status Field -->
+                            <div class="form-group-half">
+                                <label for="paymentStatus">Payment Status</label>
+                                <div class="payment-status-container">
+                                    <input type="text" id="paymentStatus" value="No Pago" readonly>
+                                    <div id="paymentDropdown" class="payment-dropdown" style="display: none;">
+                                        <div class="payment-option" data-value="Si Pago">Si Pago</div>
+                                        <div class="payment-option" data-value="No Pago">No Pago</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Payment Method Field -->
+                            <div class="form-group-half">
+                                <label for="paymentMethod">Payment Method</label>
+                                <div class="payment-method-container">
+                                    <input type="text" id="paymentMethod" value="Efectivo" readonly disabled>
+                                    <div id="paymentMethodDropdown" class="payment-method-dropdown" style="display: none;">
+                                        <div class="payment-method-option" data-value="Efectivo">Efectivo</div>
+                                        <div class="payment-method-option" data-value="Yape">Yape</div>
+                                        <div class="payment-method-option" data-value="Plin">Plin</div>
+                                        <div class="payment-method-option" data-value="Transferencia">Transferencia</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Remark Checkbox and Text Box -->
+                        <div class="remark-section">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="remarkCheckbox" class="modern-checkbox">
+                                <label for="remarkCheckbox" class="checkbox-label">
+                                    <span class="checkbox-custom"></span>
+                                    <span class="checkbox-text">Add a Remark</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Remark Text Box (Initially Hidden) -->
+                            <div id="remarkTextGroup" class="remark-text-group" style="display: none;">
+                                <textarea id="remarkText" placeholder="Enter your comment here..." rows="3"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- Save Button (appears with client details) -->
+                        <button type="button" id="saveBtn" class="save-btn">
+                            <span class="btn-text">Save</span>
+                            <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
+                        </button>
+                    </div>
+                    
+                    <button type="submit" id="searchBtn" class="primary-btn">
+                        <span class="btn-text">Search</span>
+                        <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
+                    </button>
+                </form>
+                
+                <div id="searchResult" class="search-result" style="display: none;">
+                    <div class="error-message-search">
+                        <i class="bx bx-x-circle"></i>
+                        <p>Client not Found</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
