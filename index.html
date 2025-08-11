@@ -149,24 +149,94 @@
                         </div>
                         
                         <!-- Save Button (appears with client details) -->
-                        <button type="button" id="saveBtn" class="save-btn">
-                            <span class="btn-text">Save</span>
+                            <button type="button" id="saveBtn" class="save-btn">
+                                <span class="btn-text">Save</span>
+                                <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
+                            </button>
+                        </div>
+                    
+                    <!-- Button and Message Container -->
+                    <div class="form-actions">
+                        <button type="submit" id="searchBtn" class="primary-btn">
+                            <span class="btn-text">Search</span>
                             <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
                         </button>
                     </div>
-                    
-                    <button type="submit" id="searchBtn" class="primary-btn">
-                        <span class="btn-text">Search</span>
-                        <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
-                    </button>
                 </form>
                 
-                <div id="searchResult" class="search-result" style="display: none;">
-                    <div class="error-message-search">
-                        <i class="bx bx-x-circle"></i>
-                        <p>Client not Found</p>
+                <div class="form-actions">
+                    <div id="searchResult" class="search-result" style="display: none;">
+                        <div class="error-message-search">
+                            <i class="bx bx-x-circle"></i>
+                            <p>Client not Found</p>
+                        </div>
+                        <!-- Add Button (appears when client not found) -->
+                        <button type="button" id="addBtn" class="save-btn" style="display: none;">
+                            <span class="btn-text">Add</span>
+                            <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
+                        </button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Client Screen -->
+    <div id="addClientScreen" class="screen">
+        <div class="header">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="bx bx-user"></i>
+                </div>
+                <div class="user-details">
+                    <h3>Raul Zarate</h3>
+                    <p>Sales Representative</p>
+                </div>
+            </div>
+            <button id="backToSearchBtn" class="logout-btn">
+                <i class="bx bx-arrow-back"></i>
+            </button>
+        </div>
+        
+        <div class="container">
+            <div class="form-card">
+                <h2>Add Client</h2>
+                
+                <form id="addClientForm">
+                    <!-- DNI Field -->
+                    <div class="form-group">
+                        <label for="addClientDni">DNI</label>
+                        <input type="text" id="addClientDni" placeholder="Enter client DNI" required>
+                    </div>
+                    
+                    <!-- Client Name Field -->
+                    <div class="form-group">
+                        <label for="addClientName">Client Name</label>
+                        <input type="text" id="addClientName" placeholder="Enter client name" required>
+                    </div>
+                    
+                    <!-- Quantity Field - Full Width -->
+                    <div class="form-group">
+                        <label for="addClientQuantity">Quantity</label>
+                        <div class="quantity-container full-width">
+                            <button type="button" id="addClientDecreaseBtn" class="quantity-btn">
+                                <i class="bx bx-minus"></i>
+                            </button>
+                            <input type="text" id="addClientQuantity" value="0" readonly>
+                            <button type="button" id="addClientIncreaseBtn" class="quantity-btn">
+                                <i class="bx bx-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Save Button -->
+                    <div class="form-actions">
+                        <button type="submit" id="addClientSaveBtn" class="save-btn">
+                            <span class="btn-text">Save Client</span>
+                            <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

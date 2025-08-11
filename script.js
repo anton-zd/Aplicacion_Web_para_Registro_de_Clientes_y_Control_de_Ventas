@@ -1,20 +1,124 @@
 // DOM elements
 const loginScreen = document.getElementById('loginScreen');
 const searchScreen = document.getElementById('searchScreen');
+const addClientScreen = document.getElementById('addClientScreen');
 const loginForm = document.getElementById('loginForm');
 const searchForm = document.getElementById('searchForm');
+const addClientForm = document.getElementById('addClientForm');
 const loginBtn = document.getElementById('loginBtn');
 const searchBtn = document.getElementById('searchBtn');
 const logoutBtn = document.getElementById('logoutBtn');
+const backToSearchBtn = document.getElementById('backToSearchBtn');
 const errorMessage = document.getElementById('errorMessage');
 const searchResult = document.getElementById('searchResult');
+const addBtn = document.getElementById('addBtn');
 
-const API_BASE_URL = 'https://api-sales-manegement.up.railway.app'; // Adjust port as needed
+const API_BASE_URL = 'http://localhost:1337'; // Adjust port as needed
 const API_ENDPOINT = '/';
 
 // Demo credentials
 const DEMO_USERNAME = 'admin';
 const DEMO_PASSWORD = 'admin';
+
+// Session management constants
+const SESSION_KEY = 'parrillada_session';
+const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+// Session management functions
+function saveSession() {
+    const sessionData = {
+        isLoggedIn: true,
+        loginTime: Date.now(),
+        username: DEMO_USERNAME
+    };
+    localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+}
+
+function getSession() {
+    try {
+        const sessionData = localStorage.getItem(SESSION_KEY);
+        if (!sessionData) return null;
+        
+        const session = JSON.parse(sessionData);
+        const currentTime = Date.now();
+        const timeDifference = currentTime - session.loginTime;
+        
+        // Check if session has expired (24 hours)
+        if (timeDifference > SESSION_DURATION) {
+            clearSession();
+            return null;
+        }
+        
+        return session;
+    } catch (error) {
+        console.error('Error reading session:', error);
+        clearSession();
+        return null;
+    }
+}
+
+function clearSession() {
+    localStorage.removeItem(SESSION_KEY);
+}
+
+function isSessionValid() {
+    const session = getSession();
+    return session && session.isLoggedIn;
+}
+
+// Function to check session expiry periodically
+function checkSessionExpiry() {
+    const currentScreen = document.querySelector('.screen.active');
+    
+    // Only check if user is currently on search screen (logged in)
+    if (currentScreen === searchScreen) {
+        if (!isSessionValid()) {
+            // Session has expired, automatically log out
+            showError('Your session has expired after 24 hours. Please log in again.');
+            
+            // Clear any ongoing processes
+            clearSession();
+            
+            // Reset forms
+            loginForm.reset();
+            searchForm.reset();
+            
+            // Hide any messages and client fields
+            hideSearchMessages();
+            hideClientNameField();
+            hideClientDetailsFields();
+            
+            // Switch back to login screen after a short delay
+            setTimeout(() => {
+                showScreen(loginScreen);
+                document.getElementById('username').focus();
+            }, 3000);
+        }
+    }
+}
+
+// Optional: Function to get remaining session time (for debugging)
+function getRemainingSessionTime() {
+    const session = getSession();
+    if (!session) return 0;
+    
+    const currentTime = Date.now();
+    const timeElapsed = currentTime - session.loginTime;
+    const timeRemaining = SESSION_DURATION - timeElapsed;
+    
+    return Math.max(0, timeRemaining);
+}
+
+// Optional: Function to format remaining time as human readable string
+function formatRemainingTime() {
+    const remaining = getRemainingSessionTime();
+    if (remaining === 0) return 'Session expired';
+    
+    const hours = Math.floor(remaining / (60 * 60 * 1000));
+    const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+    
+    return `${hours}h ${minutes}m remaining`;
+}
 
 //SEARCH BY DNI
 // Function to fetch client data from API
@@ -76,6 +180,10 @@ function setButtonLoading(button, isLoading) {
             btnText.textContent = 'Searching...';
         } else if (button.id === 'saveBtn') {
             btnText.textContent = 'Saving...';
+        } else if (button.id === 'addBtn') {
+            btnText.textContent = 'Adding...';
+        } else if (button.id === 'addClientSaveBtn') {
+            btnText.textContent = 'Saving...';
         }
         spinner.style.display = 'inline-block';
         button.disabled = true;
@@ -86,6 +194,10 @@ function setButtonLoading(button, isLoading) {
             btnText.textContent = 'Search';
         } else if (button.id === 'saveBtn') {
             btnText.textContent = 'Save';
+        } else if (button.id === 'addBtn') {
+            btnText.textContent = 'Add';
+        } else if (button.id === 'addClientSaveBtn') {
+            btnText.textContent = 'Save Client';
         }
         spinner.style.display = 'none';
         button.disabled = false;
@@ -138,6 +250,9 @@ loginForm.addEventListener('submit', async (e) => {
     // Simulate login process
     try {
         await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Save session to localStorage
+        saveSession();
         
         // Reset form
         loginForm.reset();
@@ -224,12 +339,20 @@ function hideClientDetailsFields() {
 
 function showSearchError() {
     searchResult.style.display = 'block';
+    // Show the Add button when client not found
+    if (addBtn) {
+        addBtn.style.display = 'block';
+    }
     // Stays visible until next search
 }
 
 // Hide search messages
 function hideSearchMessages() {
     searchResult.style.display = 'none';
+    // Hide the Add button when hiding search messages
+    if (addBtn) {
+        addBtn.style.display = 'none';
+    }
 }
 
 
@@ -285,9 +408,17 @@ searchForm.addEventListener('submit', async (e) => {
 
 // Logout functionality
 logoutBtn.addEventListener('click', () => {
+    // Clear session from localStorage
+    clearSession();
+    
     // Reset forms
     loginForm.reset();
     searchForm.reset();
+    if (addClientForm) addClientForm.reset();
+    
+    // Reset add client quantity field
+    const addClientQuantityInput = document.getElementById('addClientQuantity');
+    if (addClientQuantityInput) addClientQuantityInput.value = '0';
     
     // Hide any messages and client name field
     hideError();
@@ -335,11 +466,16 @@ document.addEventListener('touchend', (e) => {
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
-    // Show login screen by default
-    showScreen(loginScreen);
-    
-    // Focus on username field
-    document.getElementById('username').focus();
+    // Check if user has valid session
+    if (isSessionValid()) {
+        // User is already logged in, show search screen
+        showScreen(searchScreen);
+    } else {
+        // No valid session, show login screen
+        showScreen(loginScreen);
+        // Focus on username field
+        document.getElementById('username').focus();
+    }
     
     // Initialize quantity controls
     initializeQuantityControls();
@@ -355,6 +491,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize save button
     initializeSaveButton();
+    
+    // Initialize add button
+    initializeAddButton();
+    
+    // Initialize back to search button
+    initializeBackToSearchButton();
+    
+    // Initialize add client form controls
+    initializeAddClientControls();
+    
+    // Set up session check interval (check every 5 minutes)
+    setInterval(checkSessionExpiry, 5 * 60 * 1000);
 });
 
 // Quantity Controls
@@ -703,6 +851,160 @@ function initializeSaveButton() {
     }
 }
 
+// NEW: Initialize Add Button functionality
+function initializeAddButton() {
+    if (addBtn) {
+        addBtn.addEventListener('click', async () => {
+            // Show loading state
+            setButtonLoading(addBtn, true);
+            
+            try {
+                // Get the current DNI from search field
+                const currentDni = document.getElementById('clientDni').value.trim();
+                
+                // Pre-fill the DNI field in the add client form
+                const addClientDniInput = document.getElementById('addClientDni');
+                if (addClientDniInput && currentDni) {
+                    addClientDniInput.value = currentDni;
+                    // Lock the DNI field to prevent editing
+                    addClientDniInput.setAttribute('readonly', true);
+                }
+                
+                // Clear other fields in add client form
+                const addClientNameInput = document.getElementById('addClientName');
+                const addClientQuantityInput = document.getElementById('addClientQuantity');
+                
+                if (addClientNameInput) addClientNameInput.value = '';
+                if (addClientQuantityInput) addClientQuantityInput.value = '0';
+                
+                // Switch to add client screen
+                showScreen(addClientScreen);
+                
+                // Focus on client name field
+                if (addClientNameInput) {
+                    setTimeout(() => addClientNameInput.focus(), 100);
+                }
+                
+            } catch (error) {
+                // Show error message
+                showError(`Failed to open add client form: ${error.message}`);
+                
+            } finally {
+                // Hide loading state
+                setButtonLoading(addBtn, false);
+            }
+        });
+    }
+}
+
+// Initialize Back to Search Button functionality
+function initializeBackToSearchButton() {
+    if (backToSearchBtn) {
+        backToSearchBtn.addEventListener('click', () => {
+            // Switch back to search screen
+            showScreen(searchScreen);
+            
+            // Clear any search messages
+            hideSearchMessages();
+            
+            // Clear and unlock the DNI field in add client form for future use
+            const addClientDniInput = document.getElementById('addClientDni');
+            if (addClientDniInput) {
+                addClientDniInput.value = '';
+                addClientDniInput.removeAttribute('readonly');
+            }
+        });
+    }
+}
+
+// Initialize Add Client Form Controls
+function initializeAddClientControls() {
+    // Initialize quantity controls for add client form
+    const addClientDecreaseBtn = document.getElementById('addClientDecreaseBtn');
+    const addClientIncreaseBtn = document.getElementById('addClientIncreaseBtn');
+    const addClientQuantityInput = document.getElementById('addClientQuantity');
+    
+    if (addClientDecreaseBtn && addClientIncreaseBtn && addClientQuantityInput) {
+        addClientDecreaseBtn.addEventListener('click', () => {
+            let currentValue = parseInt(addClientQuantityInput.value) || 0;
+            if (currentValue > 0) {
+                const newValue = currentValue - 1;
+                addClientQuantityInput.value = newValue;
+            }
+        });
+        
+        addClientIncreaseBtn.addEventListener('click', () => {
+            let currentValue = parseInt(addClientQuantityInput.value) || 0;
+            const newValue = currentValue + 1;
+            addClientQuantityInput.value = newValue;
+        });
+    }
+    
+    // Initialize add client form submission with API integration
+    if (addClientForm) {
+        addClientForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Get form field values
+            const dniInput = document.getElementById('addClientDni');
+            const clientNameInput = document.getElementById('addClientName');
+            const quantityInput = document.getElementById('addClientQuantity');
+            const saveBtn = document.getElementById('addClientSaveBtn');
+            
+            if (!dniInput || !clientNameInput || !quantityInput || !saveBtn) {
+                console.error('Required form elements not found');
+                return;
+            }
+            
+            const dni = dniInput.value.trim();
+            const clientName = clientNameInput.value.trim();
+            const quantity = parseInt(quantityInput.value) || 0;
+            
+            // Validate that inputs are not empty
+            if (!dni || !clientName) {
+                alert('Please fill in all required fields (DNI and Client Name).');
+                return;
+            }
+            
+            // Show loading state
+            setButtonLoading(saveBtn, true);
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/clients`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        dni: dni,
+                        clientName: clientName,
+                        quantity: quantity
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    console.log('API response:', result);
+                    // Client saved successfully - no visual notification
+                    // User remains on the Add Client screen
+                    
+                } else {
+                    alert(`Error saving client: ${result.error}`);
+                    console.error('API error:', result.error);
+                }
+
+            } catch (error) {
+                console.error('Error connecting to the API:', error);
+                alert('An error occurred while trying to save the client. Please check your connection and try again.');
+            } finally {
+                // Remove loading state
+                setButtonLoading(saveBtn, false);
+            }
+        });
+    }
+}
+
 // Function to show error message (persistent)
 function showLoginError(message) {
     const errorElement = document.getElementById('errorMessage');
@@ -778,3 +1080,4 @@ function initializeLoginForm() {
         passwordInput.addEventListener('input', hideLoginError);
     }
 }
+
