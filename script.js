@@ -13,7 +13,7 @@ const errorMessage = document.getElementById('errorMessage');
 const searchResult = document.getElementById('searchResult');
 const addBtn = document.getElementById('addBtn');
 
-const API_BASE_URL = 'http://localhost:1337'; // Adjust port as needed
+const API_BASE_URL = 'https://api-sales-manegement.up.railway.app'; // Adjust port as needed
 const API_ENDPOINT = '/';
 
 // Demo credentials
