@@ -17,19 +17,33 @@ const API_BASE_URL = 'https://api-sales-manegement.up.railway.app'; // Adjust po
 const API_ENDPOINT = '/';
 
 // Demo credentials
-const DEMO_USERNAME = 'admin';
-const DEMO_PASSWORD = 'admin';
+const CREDENTIALS = {
+    'Seller_1': 'seller_1',
+    'Seller_2': 'seller_2',
+    'Seller_3': 'seller_3',
+    'Seller_4': 'seller_4',
+    'Seller_5': 'seller_5'
+};
+
+// Seller name mapping
+const SELLER_NAMES = {
+    'Seller_1': 'Seller 1',
+    'Seller_2': 'Seller 2',
+    'Seller_3': 'Seller 3',
+    'Seller_4': 'Seller 4',
+    'Seller_5': 'Seller 5'
+};
 
 // Session management constants
 const SESSION_KEY = 'parrillada_session';
 const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
 
 // Session management functions
-function saveSession() {
+function saveSession(username) {
     const sessionData = {
         isLoggedIn: true,
         loginTime: Date.now(),
-        username: DEMO_USERNAME
+        username: username
     };
     localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
 }
@@ -118,6 +132,108 @@ function formatRemainingTime() {
     const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
     
     return `${hours}h ${minutes}m remaining`;
+}
+
+// Function to show success modal with customizable content
+function showSuccessModal(title = "Client Saved Successfully!", message = "The client has been added to the database.") {
+    const successModalOverlay = document.getElementById('successModalOverlay');
+    const modalTitle = successModalOverlay.querySelector('h4');
+    const modalMessage = successModalOverlay.querySelector('p');
+    
+    if (successModalOverlay) {
+        // Update modal content
+        if (modalTitle) modalTitle.textContent = title;
+        if (modalMessage) modalMessage.textContent = message;
+        
+        successModalOverlay.style.display = 'flex';
+    }
+}
+
+// Function to hide success modal
+function hideSuccessModal() {
+    const successModalOverlay = document.getElementById('successModalOverlay');
+    if (successModalOverlay) {
+        successModalOverlay.style.display = 'none';
+    }
+}
+
+// Function to show/hide buttons in Client Search header
+function toggleSearchHeaderButtons(showBackButton = false) {
+    const logoutBtn = document.getElementById('logoutBtn');
+    const searchBackBtn = document.getElementById('searchBackBtn');
+    
+    if (showBackButton) {
+        // Show back button, hide logout button
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (searchBackBtn) searchBackBtn.style.display = 'block';
+    } else {
+        // Show logout button, hide back button
+        if (logoutBtn) logoutBtn.style.display = 'block';
+        if (searchBackBtn) searchBackBtn.style.display = 'none';
+    }
+}
+
+// Function to redirect to search screen and reset add client form
+function redirectToSearchScreen() {
+    // Hide modal
+    hideSuccessModal();
+    
+    // Reset add client form
+    const addClientForm = document.getElementById('addClientForm');
+    if (addClientForm) {
+        addClientForm.reset();
+    }
+    
+    // Reset quantity to 0
+    const addClientQuantityInput = document.getElementById('addClientQuantity');
+    if (addClientQuantityInput) {
+        addClientQuantityInput.value = '0';
+    }
+    
+    // Clear and unlock DNI field (if it was locked)
+    const addClientDniInput = document.getElementById('addClientDni');
+    if (addClientDniInput) {
+        addClientDniInput.value = '';
+        addClientDniInput.removeAttribute('readonly');
+    }
+    
+    // Reset search form
+    const searchForm = document.getElementById('searchForm');
+    if (searchForm) {
+        searchForm.reset();
+    }
+    
+    // Hide any search messages and client fields
+    hideSearchMessages();
+    hideClientNameField();
+    hideClientDetailsFields();
+    
+    // Ensure DNI field is unlocked and Search button is visible (search mode)
+    const clientDniInput = document.getElementById('clientDni');
+    const searchBtn = document.getElementById('searchBtn');
+    if (clientDniInput) {
+        clientDniInput.disabled = false;
+    }
+    if (searchBtn) {
+        searchBtn.style.display = 'block';
+    }
+    
+    // Switch to search screen
+    showScreen(searchScreen);
+}
+
+// Function to update seller name in header
+function updateSellerNameDisplay(username) {
+    const displayName = SELLER_NAMES[username] || 'Seller';
+    const sellerNameDisplay = document.getElementById('sellerNameDisplay');
+    const sellerNameDisplayAdd = document.getElementById('sellerNameDisplayAdd');
+    
+    if (sellerNameDisplay) {
+        sellerNameDisplay.textContent = displayName;
+    }
+    if (sellerNameDisplayAdd) {
+        sellerNameDisplayAdd.textContent = displayName;
+    }
 }
 
 //SEARCH BY DNI
@@ -239,7 +355,7 @@ loginForm.addEventListener('submit', async (e) => {
     hideError();
     
     // Validate credentials
-    if (username !== DEMO_USERNAME || password !== DEMO_PASSWORD) {
+    if (!CREDENTIALS[username] || CREDENTIALS[username] !== password) {
         showError('Invalid credentials. Please try again.');
         return;
     }
@@ -251,8 +367,11 @@ loginForm.addEventListener('submit', async (e) => {
     try {
         await new Promise(resolve => setTimeout(resolve, 2000));
         
-        // Save session to localStorage
-        saveSession();
+        // Save session to localStorage with username
+        saveSession(username);
+        
+        // Update seller name display
+        updateSellerNameDisplay(username);
         
         // Reset form
         loginForm.reset();
@@ -301,6 +420,19 @@ function showClientDetailsFields(quantity) {
     
     // Show the fields
     clientDetailsGroup.style.display = 'block';
+    
+    // Lock DNI field and hide Search button (transaction mode)
+    const clientDniInput = document.getElementById('clientDni');
+    const searchBtn = document.getElementById('searchBtn');
+    if (clientDniInput) {
+        clientDniInput.disabled = true;
+    }
+    if (searchBtn) {
+        searchBtn.style.display = 'none';
+    }
+    
+    // Show back button in header, hide logout button
+    toggleSearchHeaderButtons(true);
 }
 
 // Function to calculate and update price based on quantity
@@ -335,6 +467,19 @@ function hideClientDetailsFields() {
     paymentMethodInput.value = 'Efectivo';
     paymentMethodInput.disabled = true;
     clientDetailsGroup.style.display = 'none';
+    
+    // Unlock DNI field and show Search button (search mode)
+    const clientDniInput = document.getElementById('clientDni');
+    const searchBtn = document.getElementById('searchBtn');
+    if (clientDniInput) {
+        clientDniInput.disabled = false;
+    }
+    if (searchBtn) {
+        searchBtn.style.display = 'block';
+    }
+    
+    // Show logout button, hide back button
+    toggleSearchHeaderButtons(false);
 }
 
 function showSearchError() {
@@ -411,6 +556,9 @@ logoutBtn.addEventListener('click', () => {
     // Clear session from localStorage
     clearSession();
     
+    // Reset seller name display to default
+    updateSellerNameDisplay('');
+    
     // Reset forms
     loginForm.reset();
     searchForm.reset();
@@ -464,10 +612,20 @@ document.addEventListener('touchend', (e) => {
     lastTouchEnd = now;
 }, false);
 
+// Function to restore seller name from session
+function restoreSellerNameFromSession() {
+    const session = getSession();
+    if (session && session.username) {
+        updateSellerNameDisplay(session.username);
+    }
+}
+
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
     // Check if user has valid session
     if (isSessionValid()) {
+        // Restore seller name
+        restoreSellerNameFromSession();
         // User is already logged in, show search screen
         showScreen(searchScreen);
     } else {
@@ -498,12 +656,40 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize back to search button
     initializeBackToSearchButton();
     
+    // Initialize search back button (for Client Search section)
+    initializeSearchBackButton();
+    
     // Initialize add client form controls
     initializeAddClientControls();
+    
+    // Initialize success modal OK button
+    initializeSuccessModal();
     
     // Set up session check interval (check every 5 minutes)
     setInterval(checkSessionExpiry, 5 * 60 * 1000);
 });
+
+// Initialize Success Modal
+function initializeSuccessModal() {
+    const okModalBtn = document.getElementById('okModalBtn');
+    
+    if (okModalBtn) {
+        okModalBtn.addEventListener('click', () => {
+            redirectToSearchScreen();
+        });
+    }
+    
+    // Optional: Close modal when clicking on overlay
+    const successModalOverlay = document.getElementById('successModalOverlay');
+    if (successModalOverlay) {
+        successModalOverlay.addEventListener('click', (e) => {
+            // Only close if clicking on the overlay itself, not the modal content
+            if (e.target === successModalOverlay) {
+                redirectToSearchScreen();
+            }
+        });
+    }
+}
 
 // Quantity Controls
 function initializeQuantityControls() {
@@ -826,18 +1012,11 @@ function initializeSaveButton() {
                 // Save seller data
                 const result = await saveSeller();
                 
-                // Create success message with conditional payment method display
-                let successMessage = `Seller "${result.sellerName}" with client "${result.clientName}" (DNI: ${result.dni}, Qty: ${result.quantity}, Price: S/${result.price}, Status: ${result.paymentStatus}`;
-                
-                // Add payment method to message only if it exists
-                if (result.paymentMethod && result.paymentMethod !== '') {
-                    successMessage += `, Method: ${result.paymentMethod}`;
-                }
-                
-                successMessage += `) saved successfully!`;
-                
-                // Show success message
-                showSuccessMessage(successMessage);
+                // Show success modal with Client Search specific content
+                showSuccessModal(
+                    "Transaction Saved Successfully!", 
+                    "The client transaction has been recorded in the database."
+                );
                 
             } catch (error) {
                 // Show error message
@@ -917,6 +1096,29 @@ function initializeBackToSearchButton() {
     }
 }
 
+// Initialize Search Back Button functionality (for Client Search section)
+function initializeSearchBackButton() {
+    const searchBackBtn = document.getElementById('searchBackBtn');
+    
+    if (searchBackBtn) {
+        searchBackBtn.addEventListener('click', () => {
+            // Hide client details and return to main search view
+            hideClientNameField();
+            hideClientDetailsFields();
+            hideSearchMessages();
+            
+            // Reset search form but keep the DNI
+            const clientDniInput = document.getElementById('clientDni');
+            if (clientDniInput) {
+                clientDniInput.focus();
+            }
+            
+            // Show logout button, hide back button
+            toggleSearchHeaderButtons(false);
+        });
+    }
+}
+
 // Initialize Add Client Form Controls
 function initializeAddClientControls() {
     // Initialize quantity controls for add client form
@@ -986,8 +1188,11 @@ function initializeAddClientControls() {
 
                 if (response.ok) {
                     console.log('API response:', result);
-                    // Client saved successfully - no visual notification
-                    // User remains on the Add Client screen
+                    // Show success modal with Add Client specific content
+                    showSuccessModal(
+                        "Client Added Successfully!", 
+                        "The new client has been added to the database."
+                    );
                     
                 } else {
                     alert(`Error saving client: ${result.error}`);

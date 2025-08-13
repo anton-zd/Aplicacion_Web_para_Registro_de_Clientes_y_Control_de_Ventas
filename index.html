@@ -32,11 +32,7 @@
                     </button>
                 </form>
                 
-                <div class="demo-credentials">
-                    <h4>Demo Credentials:</h4>
-                    <p>Username: <span class="credential">admin</span></p>
-                    <p>Password: <span class="credential">admin</span></p>
-                </div>
+                <p style="text-align: center; color: #666; font-size: 0.9em; margin-top: 20px;">Made it by Antony</p>
                 
                 <div id="errorMessage" class="error-message" style="display: none;">
                     Invalid credentials. Please try again.
@@ -53,12 +49,15 @@
                     <i class="bx bx-user"></i>
                 </div>
                 <div class="user-details">
-                    <h3>Antony Zarate</h3>
+                    <h3><span id="sellerNameDisplay">Seller</span></h3>
                     <p>Sales Representative</p>
                 </div>
             </div>
             <button id="logoutBtn" class="logout-btn">
                 <i class="bx bx-log-out"></i>
+            </button>
+            <button id="searchBackBtn" class="logout-btn" style="display: none;">
+                <i class="bx bx-arrow-back"></i>
             </button>
         </div>
         
@@ -69,7 +68,7 @@
                 <form id="searchForm">
                     <div class="form-group">
                         <label for="clientDni">DNI</label>
-                        <input type="text" id="clientDni" placeholder="Enter client DNI" required>
+                        <input type="text" id="clientDni" placeholder="Enter client DNI" inputmode="numeric" pattern="[0-9]*" required>
                     </div>
                     
                     <!-- Campo de nombre del cliente (inicialmente oculto) -->
@@ -189,7 +188,7 @@
                     <i class="bx bx-user"></i>
                 </div>
                 <div class="user-details">
-                    <h3>Raul Zarate</h3>
+                    <h3><span id="sellerNameDisplayAdd">Seller</span></h3>
                     <p>Sales Representative</p>
                 </div>
             </div>
@@ -238,6 +237,16 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModalOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); display: none; justify-content: center; align-items: center; z-index: 1000;">
+        <div id="successModal" style="background-color: #e8f5e9; padding: 30px 50px; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); min-width: 300px;">
+            <i class="bx bx-check-circle" style="font-size: 48px; color: #28a745; margin-bottom: 15px;"></i>
+            <h4 style="color: #155724; margin-bottom: 10px; font-size: 18px;">Client Saved Successfully!</h4>
+            <p style="color: #155724; margin-bottom: 20px; font-size: 14px;">The client has been added to the database.</p>
+            <button id="okModalBtn" style="margin-top: 10px; padding: 12px 24px; border: none; border-radius: 5px; background-color: #28a745; color: white; cursor: pointer; font-size: 16px; font-weight: 500; transition: background-color 0.3s;">Ok</button>
         </div>
     </div>
 
