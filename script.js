@@ -580,6 +580,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initializeSuccessModal();
 
+    initializePasswordToggle();
+
     setInterval(checkSessionExpiry, 5 * 60 * 1000);
 });
 
@@ -1148,4 +1150,47 @@ function initializeLoginForm() {
         usernameInput.addEventListener('input', hideLoginError);
         passwordInput.addEventListener('input', hideLoginError);
     }
+}
+
+function initializePasswordToggle() {
+    const passwordInput = document.getElementById('password');
+    const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+    const togglePasswordIcon = document.getElementById('togglePasswordIcon');
+
+    if (!passwordInput || !togglePasswordBtn || !togglePasswordIcon) {
+        return;
+    }
+
+    togglePasswordBtn.style.display = 'none';
+
+    passwordInput.addEventListener('input', () => {
+        if (passwordInput.value.length > 0) {
+            togglePasswordBtn.style.display = 'block';
+        } else {
+            togglePasswordBtn.style.display = 'none';
+            passwordInput.setAttribute('type', 'password');
+            togglePasswordIcon.className = 'bx bx-hide';
+        }
+    });
+
+    togglePasswordBtn.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        
+        const currentType = passwordInput.getAttribute('type');
+        const newType = currentType === 'password' ? 'text' : 'password';
+        
+        passwordInput.setAttribute('type', newType);
+
+        if (newType === 'text') {
+            togglePasswordIcon.className = 'bx bx-show';
+        } else {
+            togglePasswordIcon.className = 'bx bx-hide';
+        }
+    });
+
+    passwordInput.addEventListener('focus', () => {
+        if (passwordInput.value.length > 0) {
+            togglePasswordBtn.style.display = 'block';
+        }
+    });
 }
