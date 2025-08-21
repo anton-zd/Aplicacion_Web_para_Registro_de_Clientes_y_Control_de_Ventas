@@ -31,6 +31,14 @@ const SELLER_NAMES = {
     'seller_5': 'Vendedor 5'
 };
 
+const SELLER_PROFILE_IMAGES = {
+    'admin': 'seller_1.png',
+    'seller_2': 'seller_2.png',
+    'seller_3': 'seller_3.png',
+    'seller_4': 'seller_4.png',
+    'seller_5': 'seller_5.png'
+};
+
 const SESSION_KEY = 'parrillada_session';
 const SESSION_DURATION = 24 * 60 * 60 * 1000; 
 
@@ -205,14 +213,38 @@ function redirectToSearchScreen() {
 
 function updateSellerNameDisplay(username) {
     const displayName = SELLER_NAMES[username] || 'Vendedor';
+    const profileImageName = SELLER_PROFILE_IMAGES[username] || 'seller_1.png';
+    
     const sellerNameDisplay = document.getElementById('sellerNameDisplay');
     const sellerNameDisplayAdd = document.getElementById('sellerNameDisplayAdd');
+    const profileImage = document.getElementById('profileImage');
+    const profileImageAdd = document.getElementById('profileImageAdd');
 
     if (sellerNameDisplay) {
         sellerNameDisplay.textContent = displayName;
     }
     if (sellerNameDisplayAdd) {
         sellerNameDisplayAdd.textContent = displayName;
+    }
+    
+    const imageUrl = `assets/${profileImageName}`;
+    if (profileImage) {
+        profileImage.src = imageUrl;
+        profileImage.alt = `${displayName} Profile Picture`;
+
+        profileImage.onerror = function() {
+            this.src = 'assets/seller_1.png';
+            this.alt = 'Default Profile Picture';
+        };
+    }
+    if (profileImageAdd) {
+        profileImageAdd.src = imageUrl;
+        profileImageAdd.alt = `${displayName} Profile Picture`;
+        
+        profileImageAdd.onerror = function() {
+            this.src = 'assets/seller_1.png';
+            this.alt = 'Default Profile Picture';
+        };
     }
 }
 
@@ -543,6 +575,18 @@ function restoreSellerNameFromSession() {
     const session = getSession();
     if (session && session.username) {
         updateSellerNameDisplay(session.username);
+    } else {
+        const profileImage = document.getElementById('profileImage');
+        const profileImageAdd = document.getElementById('profileImageAdd');
+        
+        if (profileImage) {
+            profileImage.src = 'assets/seller_1.png';
+            profileImage.alt = 'Default Profile Picture';
+        }
+        if (profileImageAdd) {
+            profileImageAdd.src = 'assets/seller_1.png';
+            profileImageAdd.alt = 'Default Profile Picture';
+        }
     }
 }
 
