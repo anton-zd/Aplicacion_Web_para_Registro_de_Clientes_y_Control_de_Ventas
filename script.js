@@ -87,18 +87,13 @@ function checkSessionExpiry() {
 
     if (currentScreen === searchScreen) {
         if (!isSessionValid()) {
-
             showError('Tu sesión ha expirado después de 24 horas. Por favor inicia sesión nuevamente.');
-
             clearSession();
-
             loginForm.reset();
             searchForm.reset();
-
             hideSearchMessages();
             hideClientNameField();
             hideClientDetailsFields();
-
             setTimeout(() => {
                 showScreen(loginScreen);
                 document.getElementById('username').focus();
@@ -110,21 +105,17 @@ function checkSessionExpiry() {
 function getRemainingSessionTime() {
     const session = getSession();
     if (!session) return 0;
-
     const currentTime = Date.now();
     const timeElapsed = currentTime - session.loginTime;
     const timeRemaining = SESSION_DURATION - timeElapsed;
-
     return Math.max(0, timeRemaining);
 }
 
 function formatRemainingTime() {
     const remaining = getRemainingSessionTime();
     if (remaining === 0) return 'Session expired';
-
     const hours = Math.floor(remaining / (60 * 60 * 1000));
     const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
-
     return `${hours}h ${minutes}m remaining`;
 }
 
@@ -134,10 +125,8 @@ function showSuccessModal(title = "¡Cliente Guardado Exitosamente!", message = 
     const modalMessage = successModalOverlay.querySelector('p');
 
     if (successModalOverlay) {
-
         if (modalTitle) modalTitle.textContent = title;
         if (modalMessage) modalMessage.textContent = message;
-
         successModalOverlay.style.display = 'flex';
     }
 }
@@ -154,36 +143,29 @@ function toggleSearchHeaderButtons(showBackButton = false) {
     const searchBackBtn = document.getElementById('searchBackBtn');
 
     if (showBackButton) {
-
         if (logoutBtn) logoutBtn.style.display = 'none';
         if (searchBackBtn) searchBackBtn.style.display = 'block';
     } else {
-
         if (logoutBtn) logoutBtn.style.display = 'block';
         if (searchBackBtn) searchBackBtn.style.display = 'none';
     }
 }
 
 function redirectToSearchScreen() {
-
     hideSuccessModal();
-
     const addClientForm = document.getElementById('addClientForm');
     if (addClientForm) {
         addClientForm.reset();
     }
-
     const addClientQuantityInput = document.getElementById('addClientQuantity');
     if (addClientQuantityInput) {
         addClientQuantityInput.value = '0';
     }
-
     const addClientDniInput = document.getElementById('addClientDni');
     if (addClientDniInput) {
         addClientDniInput.value = '';
         addClientDniInput.removeAttribute('readonly');
     }
-
     const searchForm = document.getElementById('searchForm');
     if (searchForm) {
         searchForm.reset();
@@ -214,7 +196,6 @@ function redirectToSearchScreen() {
 function updateSellerNameDisplay(username) {
     const displayName = SELLER_NAMES[username] || 'Vendedor';
     const profileImageName = SELLER_PROFILE_IMAGES[username] || 'seller_1.png';
-    
     const sellerNameDisplay = document.getElementById('sellerNameDisplay');
     const sellerNameDisplayAdd = document.getElementById('sellerNameDisplayAdd');
     const profileImage = document.getElementById('profileImage');
@@ -231,7 +212,6 @@ function updateSellerNameDisplay(username) {
     if (profileImage) {
         profileImage.src = imageUrl;
         profileImage.alt = `${displayName} Profile Picture`;
-
         profileImage.onerror = function() {
             this.src = 'assets/seller_1.png';
             this.alt = 'Default Profile Picture';
@@ -240,7 +220,6 @@ function updateSellerNameDisplay(username) {
     if (profileImageAdd) {
         profileImageAdd.src = imageUrl;
         profileImageAdd.alt = `${displayName} Profile Picture`;
-        
         profileImageAdd.onerror = function() {
             this.src = 'assets/seller_1.png';
             this.alt = 'Default Profile Picture';
@@ -255,7 +234,6 @@ async function fetchClientData() {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-
         const data = await response.json();
         return data;
     } catch (error) {
@@ -268,7 +246,6 @@ function searchClientByDni(apiResponse, dniToSearch) {
     if (!apiResponse || !apiResponse.values) {
         return null;
     }
-
     for (let i = 1; i < apiResponse.values.length; i++) {
         const row = apiResponse.values[i];
         if (row && row[0] === dniToSearch) {
@@ -279,7 +256,6 @@ function searchClientByDni(apiResponse, dniToSearch) {
             };
         }
     }
-
     return null; 
 }
 
@@ -328,7 +304,6 @@ function setButtonLoading(button, isLoading) {
 function showError(message) {
     errorMessage.textContent = message;
     errorMessage.style.display = 'block';
-
     setTimeout(() => {
         errorMessage.style.display = 'none';
     }, 5000);
@@ -340,7 +315,6 @@ function hideError() {
 
 function showSearchResult() {
     searchResult.style.display = 'block';
-
     setTimeout(() => {
         searchResult.style.display = 'none';
     }, 5000);
@@ -348,12 +322,9 @@ function showSearchResult() {
 
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
-
     hideError();
-
     if (!CREDENTIALS[username] || CREDENTIALS[username] !== password) {
         showError('Credenciales inválidas. Por favor intenta nuevamente.');
         return;
@@ -363,13 +334,9 @@ loginForm.addEventListener('submit', async (e) => {
 
     try {
         await new Promise(resolve => setTimeout(resolve, 2000));
-
         saveSession(username);
-
         updateSellerNameDisplay(username);
-
         loginForm.reset();
-
         showScreen(searchScreen);
 
     } catch (error) {
@@ -382,7 +349,6 @@ loginForm.addEventListener('submit', async (e) => {
 function showClientNameField(clientName) {
     const clientNameGroup = document.getElementById('clientNameGroup');
     const clientNameInput = document.getElementById('clientName');
-
     clientNameInput.value = clientName;
     clientNameGroup.style.display = 'block';
 }
@@ -396,14 +362,10 @@ function showClientDetailsFields(quantity) {
 
     const initialQuantity = quantity || '0';
     clientQuantityInput.value = initialQuantity;
-
     updatePrice(parseInt(initialQuantity));
-
     paymentStatusInput.value = 'No Pago';
-
     paymentMethodInput.value = 'Efectivo';
     paymentMethodInput.disabled = true;
-
     clientDetailsGroup.style.display = 'block';
 
     const clientDniInput = document.getElementById('clientDni');
@@ -422,14 +384,12 @@ function updatePrice(quantity) {
     const pricePerUnit = 15; 
     const totalPrice = quantity * pricePerUnit;
     const clientPriceInput = document.getElementById('clientPrice');
-
     clientPriceInput.value = `S/${totalPrice}`;
 }
 
 function hideClientNameField() {
     const clientNameGroup = document.getElementById('clientNameGroup');
     const clientNameInput = document.getElementById('clientName');
-
     clientNameInput.value = '';
     clientNameGroup.style.display = 'none';
 }
@@ -466,7 +426,6 @@ function showSearchError() {
     if (addBtn) {
         addBtn.style.display = 'block';
     }
-
 }
 
 function hideSearchMessages() {
@@ -485,32 +444,24 @@ searchForm.addEventListener('submit', async (e) => {
     if (!clientDni) {
         return;
     }
-
     hideSearchMessages();
     hideClientNameField();
     hideClientDetailsFields();
-
     setButtonLoading(searchBtn, true);
 
     try {
         const apiResponse = await fetchClientData();
-
         if (!apiResponse) {
             throw new Error('Failed to fetch client data');
         }
-
         const foundClient = searchClientByDni(apiResponse, clientDni);
-
         if (foundClient) {
-
             showClientNameField(foundClient.name);
             showClientDetailsFields(foundClient.quantity);
             console.log('Cliente encontrado:', foundClient);
         } else {
-
             showSearchError();
         }
-
     } catch (error) {
         console.error('Error de búsqueda:', error);
         showError('Error en la búsqueda. Por favor intenta nuevamente.');
@@ -522,7 +473,6 @@ searchForm.addEventListener('submit', async (e) => {
 logoutBtn.addEventListener('click', () => {
 
     clearSession();
-
     updateSellerNameDisplay('');
 
     loginForm.reset();
@@ -605,27 +555,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     initializeQuantityControls();
-
     initializePaymentStatusDropdown();
-
     initializePaymentMethodDropdown();
-
     initializeRemarkCheckbox();
-
     initializeSaveButton();
-
     initializeAddButton();
-
     initializeBackToSearchButton();
-
     initializeSearchBackButton();
-
     initializeAddClientControls();
-
     initializeSuccessModal();
-
     initializePasswordToggle();
-
     setInterval(checkSessionExpiry, 5 * 60 * 1000);
 });
 
@@ -701,11 +640,9 @@ function updatePaymentMethodStatus(paymentStatus) {
     const paymentMethodInput = document.getElementById('paymentMethod');
 
     if (paymentStatus === 'No Pago') {
-
         paymentMethodInput.disabled = true;
         paymentMethodInput.value = 'Efectivo';
     } else if (paymentStatus === 'Si Pago') {
-
         paymentMethodInput.disabled = false;
     }
 }
@@ -742,16 +679,12 @@ function initializeRemarkCheckbox() {
 
     remarkCheckbox.addEventListener('change', () => {
         if (remarkCheckbox.checked) {
-
             remarkTextGroup.style.display = 'block';
-
             setTimeout(() => {
                 document.getElementById('remarkText').focus();
             }, 200);
         } else {
-
             remarkTextGroup.style.display = 'none';
-
             document.getElementById('remarkText').value = '';
         }
     });
@@ -892,7 +825,6 @@ async function saveSeller() {
 
         const result = await response.json();
         console.log('Guardado exitoso:', result);
-
         return result;
 
     } catch (error) {
@@ -902,7 +834,6 @@ async function saveSeller() {
 }
 
 function showSuccessMessage(message) {
-
     const successElement = document.getElementById('errorMessage'); 
 
     if (successElement) {
@@ -931,9 +862,7 @@ function initializeSaveButton() {
             setButtonLoading(saveBtn, true);
 
             try {
-
                 const result = await saveSeller();
-
                 showSuccessModal(
                     "¡Transacción Guardada Exitosamente!", 
                     "La transacción del cliente ha sido registrada en la base de datos."
@@ -942,9 +871,7 @@ function initializeSaveButton() {
             } catch (error) {
 
                 showError(`Error al guardar: ${error.message}`);
-
             } finally {
-
                 setButtonLoading(saveBtn, false);
             }
         });
@@ -960,30 +887,23 @@ function initializeAddButton() {
             try {
 
                 const currentDni = document.getElementById('clientDni').value.trim();
-
                 const addClientDniInput = document.getElementById('addClientDni');
                 if (addClientDniInput && currentDni) {
                     addClientDniInput.value = currentDni;
 
                     addClientDniInput.setAttribute('readonly', true);
                 }
-
                 const addClientNameInput = document.getElementById('addClientName');
                 const addClientQuantityInput = document.getElementById('addClientQuantity');
 
                 if (addClientNameInput) addClientNameInput.value = '';
                 if (addClientQuantityInput) addClientQuantityInput.value = '0';
-
                 showScreen(addClientScreen);
-
                 if (addClientNameInput) {
                     setTimeout(() => addClientNameInput.focus(), 100);
                 }
-
             } catch (error) {
-
                 showError(`Error al abrir el formulario de agregar cliente: ${error.message}`);
-
             } finally {
 
                 setButtonLoading(addBtn, false);
@@ -995,11 +915,8 @@ function initializeAddButton() {
 function initializeBackToSearchButton() {
     if (backToSearchBtn) {
         backToSearchBtn.addEventListener('click', () => {
-
             showScreen(searchScreen);
-
             hideSearchMessages();
-
             const addClientDniInput = document.getElementById('addClientDni');
             if (addClientDniInput) {
                 addClientDniInput.value = '';
@@ -1018,12 +935,10 @@ function initializeSearchBackButton() {
             hideClientNameField();
             hideClientDetailsFields();
             hideSearchMessages();
-
             const clientDniInput = document.getElementById('clientDni');
             if (clientDniInput) {
                 clientDniInput.focus();
             }
-
             toggleSearchHeaderButtons(false);
         });
     }
@@ -1153,29 +1068,21 @@ function initializeLoginForm() {
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
             hideLoginError();
-
             const username = usernameInput.value.trim();
             const password = passwordInput.value.trim();
-
             const btnText = loginBtn.querySelector('.btn-text');
             const spinner = loginBtn.querySelector('.loading-spinner');
-
             if (btnText && spinner) {
                 btnText.style.display = 'none';
                 spinner.style.display = 'inline-block';
                 loginBtn.disabled = true;
             }
-
             try {
-
                 if (username === DEMO_USERNAME && password === DEMO_PASSWORD) {
-
                     hideLoginError();
                     showScreen(searchScreen);
                 } else {
-
                     showLoginError('Invalid credentials. Please try again.');
                 }
             } catch (error) {
@@ -1190,7 +1097,6 @@ function initializeLoginForm() {
                 }
             }
         });
-
         usernameInput.addEventListener('input', hideLoginError);
         passwordInput.addEventListener('input', hideLoginError);
     }
@@ -1200,13 +1106,10 @@ function initializePasswordToggle() {
     const passwordInput = document.getElementById('password');
     const togglePasswordBtn = document.getElementById('togglePasswordBtn');
     const togglePasswordIcon = document.getElementById('togglePasswordIcon');
-
     if (!passwordInput || !togglePasswordBtn || !togglePasswordIcon) {
         return;
     }
-
     togglePasswordBtn.style.display = 'none';
-
     passwordInput.addEventListener('input', () => {
         if (passwordInput.value.length > 0) {
             togglePasswordBtn.style.display = 'block';
@@ -1216,22 +1119,17 @@ function initializePasswordToggle() {
             togglePasswordIcon.className = 'bx bx-hide';
         }
     });
-
     togglePasswordBtn.addEventListener('click', (e) => {
         e.preventDefault(); 
-        
         const currentType = passwordInput.getAttribute('type');
-        const newType = currentType === 'password' ? 'text' : 'password';
-        
+        const newType = currentType === 'password' ? 'text' : 'password';      
         passwordInput.setAttribute('type', newType);
-
         if (newType === 'text') {
             togglePasswordIcon.className = 'bx bx-show';
         } else {
             togglePasswordIcon.className = 'bx bx-hide';
         }
     });
-
     passwordInput.addEventListener('focus', () => {
         if (passwordInput.value.length > 0) {
             togglePasswordBtn.style.display = 'block';
