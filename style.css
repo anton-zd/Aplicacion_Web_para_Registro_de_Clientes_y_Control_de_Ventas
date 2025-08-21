@@ -1,4 +1,3 @@
-/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
@@ -12,7 +11,6 @@ body {
     color: #333;
 }
 
-/* Screen management */
 .screen {
     display: none;
     min-height: 100vh;
@@ -22,7 +20,6 @@ body {
     display: block;
 }
 
-/* Container */
 .container {
     padding: 20px;
     display: flex;
@@ -41,7 +38,6 @@ body {
     text-align: center;
 }
 
-/* Typography */
 h2 {
     font-size: 28px;
     font-weight: 600;
@@ -55,7 +51,6 @@ h2 {
     font-size: 16px;
 }
 
-/* Form styles */
 .form-group {
     margin-bottom: 20px;
     text-align: left;
@@ -88,7 +83,6 @@ input[type="password"]:focus {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
 }
 
-/* Client Name Group - Initially hidden */
 #clientNameGroup {
     transition: all 0.3s ease;
 }
@@ -100,7 +94,6 @@ input[type="password"]:focus {
     cursor: default;
 }
 
-/* Readonly styling for Add Client DNI field */
 #addClientDni[readonly] {
     background-color: #f7fafc;
     color: #2d3748;
@@ -108,7 +101,6 @@ input[type="password"]:focus {
     cursor: default;
 }
 
-/* Client Details Group - Custom layout */
 #clientDetailsGroup {
     transition: all 0.3s ease;
 }
@@ -135,7 +127,6 @@ input[type="password"]:focus {
     text-align: left;
 }
 
-/* Price Field Styling */
 #clientPrice {
     width: 100%;
     padding: 14px 16px;
@@ -154,7 +145,6 @@ input[type="password"]:focus {
     box-shadow: none;
 }
 
-/* Quantity Container */
 .quantity-container {
     display: flex;
     align-items: center;
@@ -201,7 +191,6 @@ input[type="password"]:focus {
     box-shadow: none;
 }
 
-/* Full-width Quantity Container for Add Client Form */
 .quantity-container.full-width {
     display: flex;
     align-items: center;
@@ -227,7 +216,6 @@ input[type="password"]:focus {
     box-shadow: none;
 }
 
-/* Payment Status Container */
 .payment-status-container {
     position: relative;
 }
@@ -256,7 +244,6 @@ input[type="password"]:focus {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
 }
 
-/* Payment Dropdown */
 .payment-dropdown {
     position: absolute;
     top: 100%;
@@ -293,7 +280,6 @@ input[type="password"]:focus {
     color: #c53030;
 }
 
-/* Payment Method Container */
 .payment-method-container {
     position: relative;
 }
@@ -329,7 +315,6 @@ input[type="password"]:focus {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
 }
 
-/* Payment Method Dropdown */
 .payment-method-dropdown {
     position: absolute;
     top: 100%;
@@ -358,12 +343,10 @@ input[type="password"]:focus {
     background: #e2e8f0;
 }
 
-/* Payment row styling */
 .payment-row {
     margin-bottom: 20px;
 }
 
-/* Button styles */
 .primary-btn {
     width: 100%;
     padding: 14px 24px;
@@ -393,7 +376,6 @@ input[type="password"]:focus {
     transform: none;
 }
 
-/* Save Button - Green variant with same dimensions as primary-btn */
 .save-btn {
     width: 100%;
     padding: 14px 24px;
@@ -437,7 +419,6 @@ input[type="password"]:focus {
     }
 }
 
-/* Demo credentials */
 .demo-credentials {
     margin-top: 24px;
     padding: 16px;
@@ -467,7 +448,6 @@ input[type="password"]:focus {
     font-family: monospace;
 }
 
-/* Error message */
 .error-message {
     margin-top: 16px;
     padding: 12px;
@@ -477,7 +457,6 @@ input[type="password"]:focus {
     font-size: 14px;
 }
 
-/* Header styles for search screen */
 .header {
     background: white;
     padding: 16px 20px;
@@ -537,12 +516,10 @@ input[type="password"]:focus {
     color: #4a5568;
 }
 
-/* Search screen container adjustment */
 #searchScreen .container {
     padding-top: 40px;
 }
 
-/* Form actions wrapper for consistent button and message alignment */
 .form-actions {
     width: 100%;
     display: flex;
@@ -555,7 +532,6 @@ input[type="password"]:focus {
     margin-top: 20px;
 }
 
-/* Search result styles - ONLY for error message */
 .search-result {
     margin-top: 0;
     width: 100%;
@@ -579,7 +555,6 @@ input[type="password"]:focus {
     margin-bottom: 16px;
 }
 
-/* Add button specific styles when inside search result */
 .search-result .save-btn {
     margin-bottom: 0;
 }
@@ -593,109 +568,99 @@ input[type="password"]:focus {
     font-weight: 500;
 }
 
-/* ...existing code... */
-
-/* Mobile responsiveness */
 @media (max-width: 480px) {
     .container {
         padding: 16px;
     }
-    
+
     .form-card {
         padding: 24px;
         border-radius: 12px;
     }
-    
+
     h2 {
         font-size: 24px;
     }
-    
+
     .header {
         padding: 12px 16px;
     }
-    
+
     .user-avatar {
         width: 40px;
         height: 40px;
         font-size: 18px;
     }
-    
+
     .user-details h3 {
         font-size: 15px;
     }
-    
+
     .user-details p {
         font-size: 13px;
     }
-    
-    /* Keep desktop layout on mobile - fields stay side by side */
+
     .form-group-row,
     .quantity-price-row,
     .payment-row {
-        flex-direction: row; /* Keep horizontal layout */
-        gap: 12px; /* Smaller gap for mobile */
+        flex-direction: row; 
+        gap: 12px; 
     }
-    
+
     .form-group-half,
     .form-group-third {
-        flex: 1; /* Equal width distribution */
+        flex: 1; 
     }
-    
+
     .quantity-btn {
-        width: 32px; /* Smaller buttons for mobile */
+        width: 32px; 
         height: 40px;
         font-size: 14px;
     }
-    
-    /* Adjust input padding for mobile */
+
     input[type="text"],
     input[type="password"] {
         padding: 12px 14px;
         font-size: 14px;
     }
-    
+
     #clientQuantity {
-        padding: 12px 8px; /* Less padding for quantity field */
+        padding: 12px 8px; 
         font-size: 14px;
     }
-    
+
     #clientPrice,
     #paymentMethod {
         padding: 12px 14px;
         font-size: 14px;
     }
-    
-    /* Ensure form actions maintain consistent width on mobile */
+
     .form-actions {
         margin-top: 16px;
     }
-    
+
     .error-message-search {
         padding: 12px 16px;
         font-size: 14px;
     }
-    
-    /* Add client form mobile styles */
+
     .quantity-container.full-width input {
         padding: 12px 8px;
         font-size: 14px;
     }
 }
 
-/* Ensure proper viewport on iOS */
 @supports (-webkit-touch-callout: none) {
     .container {
         min-height: -webkit-fill-available;
     }
 }
 
-/* Remark Section Styles */
 .remark-section {
     margin-top: 20px;
     width: 100%;
 }
 
-/* Checkbox Container */
 .checkbox-container {
     display: flex;
     align-items: center;
@@ -703,7 +668,6 @@ input[type="password"]:focus {
     cursor: pointer;
 }
 
-/* Hide the default checkbox */
 .modern-checkbox {
     position: absolute;
     opacity: 0;
@@ -712,7 +676,6 @@ input[type="password"]:focus {
     width: 0;
 }
 
-/* Checkbox Label */
 .checkbox-label {
     display: flex;
     align-items: center;
@@ -729,7 +692,6 @@ input[type="password"]:focus {
     transform: translateX(2px);
 }
 
-/* Custom Checkbox Design */
 .checkbox-custom {
     position: relative;
     width: 24px;
@@ -744,20 +706,17 @@ input[type="password"]:focus {
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Checkbox Hover Effect */
 .checkbox-label:hover .checkbox-custom {
     border-color: #cbd5e0;
     background: #edf2f7;
     transform: scale(1.05);
 }
 
-/* Checked State */
 .modern-checkbox:checked + .checkbox-label .checkbox-custom {
     background: rgb(63, 149, 222);
     border-color: rgb(49, 130, 206);
 }
 
-/* Checkmark */
 .modern-checkbox:checked + .checkbox-label .checkbox-custom::after {
     content: '✓';
     color: white;
@@ -781,7 +740,6 @@ input[type="password"]:focus {
     }
 }
 
-/* Remark Text Group */
 .remark-text-group {
     width: 100%;
     margin-top: 16px;
@@ -801,7 +759,6 @@ input[type="password"]:focus {
     }
 }
 
-/* Remark Textarea */
 #remarkText {
     width: 100%;
     min-height: 80px;
@@ -829,7 +786,6 @@ input[type="password"]:focus {
     transform: translateY(-2px);
 }
 
-/* Success Modal Styles */
 #okModalBtn:hover {
     background-color: #218838 !important;
     transform: translateY(-1px);

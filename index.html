@@ -3,45 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parrillada App</title>
+    <title>App Parrillada</title>
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <!-- Login Screen -->
+
     <div id="loginScreen" class="screen active">
         <div class="container">
             <div class="form-card">
-                <h2>Log In</h2>
-                <p class="subtitle">Enter your credentials to continue</p>
-                
+                <h2>Iniciar Sesión</h2>
+                <p class="subtitle">Ingresa tus credenciales para continuar</p>
+
                 <form id="loginForm">
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" placeholder="Enter username" required>
+                        <label for="username">Usuario</label>
+                        <input type="text" id="username" placeholder="Ingresa tu usuario" required>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter password" required>
+                        <label for="password">Contraseña</label>
+                        <input type="password" id="password" placeholder="Ingresa tu contraseña" required>
                     </div>
-                    
+
                     <button type="submit" id="loginBtn" class="primary-btn">
-                        <span class="btn-text">Log In</span>
+                        <span class="btn-text">Iniciar Sesión</span>
                         <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
                     </button>
                 </form>
-                
-                <p style="text-align: center; color: #666; font-size: 0.9em; margin-top: 20px;">Made it by Antony</p>
-                
+
+                <p style="text-align: center; color: #666; font-size: 0.9em; margin-top: 20px;">Hecho por Antony</p>
+
                 <div id="errorMessage" class="error-message" style="display: none;">
-                    Invalid credentials. Please try again.
+                    Credenciales inválidas. Por favor intenta de nuevo.
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Search Screen -->
     <div id="searchScreen" class="screen">
         <div class="header">
             <div class="user-info">
@@ -49,8 +48,8 @@
                     <i class="bx bx-user"></i>
                 </div>
                 <div class="user-details">
-                    <h3><span id="sellerNameDisplay">Seller</span></h3>
-                    <p>Sales Representative</p>
+                    <h3><span id="sellerNameDisplay">Vendedor</span></h3>
+                    <p>Representante de Ventas</p>
                 </div>
             </div>
             <button id="logoutBtn" class="logout-btn">
@@ -60,30 +59,28 @@
                 <i class="bx bx-arrow-back"></i>
             </button>
         </div>
-        
+
         <div class="container">
             <div class="form-card">
-                <h2>Client Search</h2>
-                
+                <h2>Buscar Cliente</h2>
+
                 <form id="searchForm">
                     <div class="form-group">
                         <label for="clientDni">DNI</label>
-                        <input type="text" id="clientDni" placeholder="Enter client DNI" inputmode="numeric" pattern="[0-9]*" required>
+                        <input type="text" id="clientDni" placeholder="Ingresa el DNI del cliente" inputmode="numeric" pattern="[0-9]*" required>
                     </div>
-                    
-                    <!-- Campo de nombre del cliente (inicialmente oculto) -->
+
                     <div id="clientNameGroup" class="form-group" style="display: none;">
-                        <label for="clientName">Client Name</label>
-                        <input type="text" id="clientName" placeholder="Client name will appear here" readonly>
+                        <label for="clientName">Nombre del Cliente</label>
+                        <input type="text" id="clientName" placeholder="El nombre del cliente aparecerá aquí" readonly>
                     </div>
-                    
-                    <!-- Campos de Quantity y Payment Status (inicialmente ocultos) -->
+
                     <div id="clientDetailsGroup" style="display: none;">
-                        <!-- Quantity and Price Row -->
+
                         <div class="form-group-row quantity-price-row">
-                            <!-- Quantity Field -->
+
                             <div class="form-group-half">
-                                <label for="clientQuantity">Quantity</label>
+                                <label for="clientQuantity">Cantidad</label>
                                 <div class="quantity-container">
                                     <button type="button" id="decreaseBtn" class="quantity-btn">
                                         <i class="bx bx-minus"></i>
@@ -94,19 +91,17 @@
                                     </button>
                                 </div>
                             </div>
-                            
-                            <!-- Price Field -->
+
                             <div class="form-group-half">
-                                <label for="clientPrice">Price</label>
+                                <label for="clientPrice">Precio</label>
                                 <input type="text" id="clientPrice" value="S/0" readonly>
                             </div>
                         </div>
-                        
-                        <!-- Payment Status and Payment Method Row -->
+
                         <div class="form-group-row payment-row">
-                            <!-- Payment Status Field -->
+
                             <div class="form-group-half">
-                                <label for="paymentStatus">Payment Status</label>
+                                <label for="paymentStatus">Estado de Pago</label>
                                 <div class="payment-status-container">
                                     <input type="text" id="paymentStatus" value="No Pago" readonly>
                                     <div id="paymentDropdown" class="payment-dropdown" style="display: none;">
@@ -115,10 +110,9 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            <!-- Payment Method Field -->
+
                             <div class="form-group-half">
-                                <label for="paymentMethod">Payment Method</label>
+                                <label for="paymentMethod">Método de Pago</label>
                                 <div class="payment-method-container">
                                     <input type="text" id="paymentMethod" value="Efectivo" readonly disabled>
                                     <div id="paymentMethodDropdown" class="payment-method-dropdown" style="display: none;">
@@ -130,48 +124,44 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Remark Checkbox and Text Box -->
+
                         <div class="remark-section">
                             <div class="checkbox-container">
                                 <input type="checkbox" id="remarkCheckbox" class="modern-checkbox">
                                 <label for="remarkCheckbox" class="checkbox-label">
                                     <span class="checkbox-custom"></span>
-                                    <span class="checkbox-text">Add a Remark</span>
+                                    <span class="checkbox-text">Agregar un Comentario</span>
                                 </label>
                             </div>
-                            
-                            <!-- Remark Text Box (Initially Hidden) -->
+
                             <div id="remarkTextGroup" class="remark-text-group" style="display: none;">
-                                <textarea id="remarkText" placeholder="Enter your comment here..." rows="3"></textarea>
+                                <textarea id="remarkText" placeholder="Ingresa tu comentario aquí..." rows="3"></textarea>
                             </div>
                         </div>
-                        
-                        <!-- Save Button (appears with client details) -->
+
                             <button type="button" id="saveBtn" class="save-btn">
-                                <span class="btn-text">Save</span>
+                                <span class="btn-text">Guardar</span>
                                 <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
                             </button>
                         </div>
-                    
-                    <!-- Button and Message Container -->
+
                     <div class="form-actions">
                         <button type="submit" id="searchBtn" class="primary-btn">
-                            <span class="btn-text">Search</span>
+                            <span class="btn-text">Buscar</span>
                             <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
                         </button>
                     </div>
                 </form>
-                
+
                 <div class="form-actions">
                     <div id="searchResult" class="search-result" style="display: none;">
                         <div class="error-message-search">
                             <i class="bx bx-x-circle"></i>
-                            <p>Client not Found</p>
+                            <p>Cliente no Encontrado</p>
                         </div>
-                        <!-- Add Button (appears when client not found) -->
+
                         <button type="button" id="addBtn" class="save-btn" style="display: none;">
-                            <span class="btn-text">Add</span>
+                            <span class="btn-text">Agregar</span>
                             <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
                         </button>
                     </div>
@@ -180,7 +170,6 @@
         </div>
     </div>
 
-    <!-- Add Client Screen -->
     <div id="addClientScreen" class="screen">
         <div class="header">
             <div class="user-info">
@@ -188,35 +177,33 @@
                     <i class="bx bx-user"></i>
                 </div>
                 <div class="user-details">
-                    <h3><span id="sellerNameDisplayAdd">Seller</span></h3>
-                    <p>Sales Representative</p>
+                    <h3><span id="sellerNameDisplayAdd">Vendedor</span></h3>
+                    <p>Representante de Ventas</p>
                 </div>
             </div>
             <button id="backToSearchBtn" class="logout-btn">
                 <i class="bx bx-arrow-back"></i>
             </button>
         </div>
-        
+
         <div class="container">
             <div class="form-card">
-                <h2>Add Client</h2>
-                
+                <h2>Agregar Cliente</h2>
+
                 <form id="addClientForm">
-                    <!-- DNI Field -->
+
                     <div class="form-group">
                         <label for="addClientDni">DNI</label>
-                        <input type="text" id="addClientDni" placeholder="Enter client DNI" required>
+                        <input type="text" id="addClientDni" placeholder="Ingresa el DNI del cliente" required>
                     </div>
-                    
-                    <!-- Client Name Field -->
+
                     <div class="form-group">
-                        <label for="addClientName">Client Name</label>
-                        <input type="text" id="addClientName" placeholder="Enter client name" required>
+                        <label for="addClientName">Nombre del Cliente</label>
+                        <input type="text" id="addClientName" placeholder="Ingresa el nombre del cliente" required>
                     </div>
-                    
-                    <!-- Quantity Field - Full Width -->
+
                     <div class="form-group">
-                        <label for="addClientQuantity">Quantity</label>
+                        <label for="addClientQuantity">Cantidad</label>
                         <div class="quantity-container full-width">
                             <button type="button" id="addClientDecreaseBtn" class="quantity-btn">
                                 <i class="bx bx-minus"></i>
@@ -227,11 +214,10 @@
                             </button>
                         </div>
                     </div>
-                    
-                    <!-- Save Button -->
+
                     <div class="form-actions">
                         <button type="submit" id="addClientSaveBtn" class="save-btn">
-                            <span class="btn-text">Save Client</span>
+                            <span class="btn-text">Guardar Cliente</span>
                             <i class="bx bx-loader-alt loading-spinner" style="display: none;"></i>
                         </button>
                     </div>
@@ -240,7 +226,6 @@
         </div>
     </div>
 
-    <!-- Success Modal -->
     <div id="successModalOverlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); display: none; justify-content: center; align-items: center; z-index: 1000;">
         <div id="successModal" style="background-color: #e8f5e9; padding: 30px 50px; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); min-width: 300px;">
             <i class="bx bx-check-circle" style="font-size: 48px; color: #28a745; margin-bottom: 15px;"></i>
