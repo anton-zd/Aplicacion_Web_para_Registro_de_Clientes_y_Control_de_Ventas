@@ -33,10 +33,10 @@ const SELLER_NAMES = {
 
 const SELLER_PROFILE_IMAGES = {
     'admin': 'seller_1.png',
-    'seller_2': 'seller_2.png',
-    'seller_3': 'seller_3.png',
-    'seller_4': 'seller_4.png',
-    'seller_5': 'seller_5.png'
+    'carlos01': 'seller_2.png',
+    'cielo01': 'seller_3.png',
+    'raul01': 'seller_4.png',
+    'tia_rosa01': 'seller_5.png'
 };
 
 const SESSION_KEY = 'parrillada_session';
