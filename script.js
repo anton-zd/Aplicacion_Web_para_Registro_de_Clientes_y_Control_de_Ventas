@@ -12,7 +12,7 @@ const errorMessage = document.getElementById('errorMessage');
 const searchResult = document.getElementById('searchResult');
 const addBtn = document.getElementById('addBtn');
 
-const API_BASE_URL = 'http://localhost:1337'; 
+const API_BASE_URL = 'https://api-sales-manegement.up.railway.app'; 
 const API_ENDPOINT = '/';
 
 const CREDENTIALS = {
