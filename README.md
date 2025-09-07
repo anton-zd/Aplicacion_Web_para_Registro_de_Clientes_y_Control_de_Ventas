@@ -7,7 +7,18 @@
 
 [![Vista previa](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_1.png)](https://sales-manegement-antony.netlify.app/)
 
-Una aplicación web sencilla para registrar clientes y gestionar el control de ventas, desarrollada con **HTML, CSS y JavaScript**.
+> Una aplicación web intuitiva para el registro de clientes y la gestión de ventas, desarrollada con **HTML, CSS y JavaScript**.
+> A través de un servidor alojado en **Railway**, la aplicación se conecta a una base de datos en **Google Sheets**, lo que permite **capturar y almacenar los datos de los clientes directamente desde la interfaz web**.
+> Puedes acceder a la aplicación en el siguiente enlace: 👉 [sales-manegement-antony](https://sales-manegement-antony.netlify.app/)
+
+## ⚠️ Importante
+
+El funcionamiento de la aplicación web depende de la **activación del servidor (API)** alojado en **Railway**.  
+Esto significa que, para acceder y probar todas las funcionalidades de la aplicación, es necesario que el servidor esté encendido.  
+
+Si deseas probar su funcionamiento completo, no dudes en escribirme: 👉 [Antony Zárate Dávila](https://www.linkedin.com/in/antonyzarate/)
+
+![Aviso](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_2.png)
 
 ## ✨ Características
 
@@ -16,10 +27,5 @@ Una aplicación web sencilla para registrar clientes y gestionar el control de v
 - 🔎 Búsqueda y filtrado de clientes
 - 🎨 Interfaz amigable y responsiva
 
-## 🚀 Inicio rápido
 
-Clona el repositorio e inicia la aplicación en tu navegador:
 
-```bash
-git clone https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas.git
-cd Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas
