@@ -9,14 +9,20 @@
 
 > Una aplicación web intuitiva para el registro de clientes y la gestión de ventas, desarrollada con **HTML, CSS y JavaScript**.
 > A través de un servidor alojado en **Railway**, la aplicación se conecta a una base de datos en **Google Sheets**, lo que permite **capturar y almacenar los datos de los clientes directamente desde la interfaz web**.
-> Puedes acceder a la aplicación en el siguiente enlace: 👉 [sales-manegement-antony](https://sales-manegement-antony.netlify.app/)
+> Puedes acceder a la aplicación en el siguiente enlace: 👉
+> <a href="https://sales-manegement-antony.netlify.app/" target="_blank">
+  sales-manegement-antony
+</a>
 
 ## ⚠️ Importante
 
 El funcionamiento de la aplicación web depende de la **activación del servidor (API)** alojado en **Railway**.  
 Esto significa que, para acceder y probar todas las funcionalidades de la aplicación, es necesario que el servidor esté encendido.  
 
-Si deseas probar su funcionamiento completo, no dudes en escribirme: 👉 [Antony Zarate Davila](https://www.linkedin.com/in/antonyzarate/)
+Si deseas probar su funcionamiento completo, no dudes en escribirme: 👉 
+<a href="https://www.linkedin.com/in/antonyzarate/" target="_blank">
+  Antony Zarate Davila
+</a>
 
 ![Aviso](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_2.png)
 
@@ -29,9 +35,43 @@ Si deseas probar su funcionamiento completo, no dudes en escribirme: 👉 [Anton
 
 ## 📱 Interfaz
 
-La aplicación cuenta con una interfaz diseñada especialmente para **dispositivos móviles**, lo que garantiza una mejor experiencia de uso en celulares.  
-De esta manera, cualquier vendedor puede **registrar clientes desde cualquier lugar**, necesitando únicamente una conexión a internet.  
+La aplicación cuenta con una interfaz diseñada especialmente para **dispositivos móviles**, lo que garantiza una mejor experiencia de uso en celulares, de esta manera, cualquier vendedor puede **registrar clientes desde cualquier lugar**, necesitando únicamente una conexión a internet.  
 
-Opté por desarrollarla con **HTML, CSS y JavaScript** en lugar de lenguajes como **Java o Kotlin** (enfocados en aplicaciones móviles nativas), ya que tenía experiencia previa con estas tecnologías y, al ser un proyecto pequeño con necesidad de entrega rápida, resultaba más práctico y eficiente.
+
+Ademas el sistema cuenta con credenciales predefinidas para acceder como diferentes vendedores.  
+
+```javascript
+const CREDENTIALS = {
+    'admin': 'admin',
+    'carlos01': 'carlos123',
+    'cielo01': 'cielo123',
+    'raul01': 'raul123',
+    'tia_rosa01': 'tia_rosa123'
+};
+
+const SELLER_NAMES = {
+    'admin': 'Admin',
+    'carlos01': 'Carlos',
+    'cielo01': 'Cielo',
+    'raul01': 'Raul',
+    'tia_rosa01': 'Tia Rosa'
+};
+```
+
+Por ello opté por desarrollarla con **HTML, CSS y JavaScript** en lugar de lenguajes como **Java o Kotlin** (enfocados en aplicaciones móviles nativas), ya que tenía experiencia previa con estas tecnologías y, al ser un proyecto pequeño con necesidad de entrega rápida, resultaba más práctico y eficiente.
 
 ![Interfaz](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_3.png)
+
+## 🗄️ Base de Datos
+
+Al evaluar distintas opciones de bases de datos como **MySQL**, **SQL Server**, **PostgreSQL** o incluso **Microsoft Excel**, opté por **Google Sheets** debido a su **simplicidad** y a la facilidad de uso de su propia **API gratuita**.  
+La decisión también se tomó porque la persona encargada de gestionar la base de datos (mi primo 😅) no tiene experiencia con sistemas más avanzados como SQL, y con Google Sheets el proceso resulta mucho más accesible.  
+
+Otra ventaja clave de usar Google Sheets es su capacidad de **trabajo colaborativo**, lo que permite compartir y editar la base de datos fácilmente a través de un enlace.  
+De hecho, tú mismo puedes revisarla en el siguiente link 👉 
+<a href="https://docs.google.com/spreadsheets/d/1r4CeqEpV315mvCQMy7M77fppCwdX2mW4sC_5ZvUJQNo/edit?usp=sharing" target="_blank">
+  📊 Base de Datos Google Sheets
+</a>
+
+
+![BD](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_4.png)
