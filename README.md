@@ -9,7 +9,7 @@
 
 > Una aplicación web intuitiva para el registro de clientes y la gestión de ventas, desarrollada con **HTML, CSS y JavaScript**.
 > A través de un servidor alojado en **Railway**, la aplicación se conecta a una base de datos en **Google Sheets**, lo que permite **capturar y almacenar los datos de los clientes directamente desde la interfaz web**.
-> Puedes acceder a la aplicación en el siguiente enlace: 👉 > [sales-manegement-antony](https://sales-manegement-antony.netlify.app/)
+> Puedes acceder a la aplicación en el siguiente enlace: 👉 [sales-manegement-antony](https://sales-manegement-antony.netlify.app/)
 
 ## ⚠️ Importante
 
