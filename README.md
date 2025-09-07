@@ -98,5 +98,5 @@ De hecho, tú mismo puedes revisarla en el siguiente link 👉 [📊 Base de Dat
 El desarrollo de esta aplicación web surgió como apoyo a la actividad de un familiar, ya que decidí voluntariamente crear una herramienta que le permitiera **gestionar de forma más organizada la venta de parrilladas y polladas**.  
 Gracias a esta aplicación, pudo dejar atrás los registros manuales en papel y comenzar a llevar sus cuentas de una manera **más práctica, moderna y automatizada**, reduciendo tiempos de trabajo y mejorando el control de ingresos.
 
-![Actividad](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_5.png)
+![Actividad](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_5.jpg)
 
