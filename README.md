@@ -9,20 +9,14 @@
 
 > Una aplicación web intuitiva para el registro de clientes y la gestión de ventas, desarrollada con **HTML, CSS y JavaScript**.
 > A través de un servidor alojado en **Railway**, la aplicación se conecta a una base de datos en **Google Sheets**, lo que permite **capturar y almacenar los datos de los clientes directamente desde la interfaz web**.
-> Puedes acceder a la aplicación en el siguiente enlace: 👉
-> <a href="https://sales-manegement-antony.netlify.app/" target="_blank">
-  sales-manegement-antony
-</a>
+> Puedes acceder a la aplicación en el siguiente enlace: 👉 > [sales-manegement-antony](https://sales-manegement-antony.netlify.app/)
 
 ## ⚠️ Importante
 
 El funcionamiento de la aplicación web depende de la **activación del servidor (API)** alojado en **Railway**.  
 Esto significa que, para acceder y probar todas las funcionalidades de la aplicación, es necesario que el servidor esté encendido.  
 
-Si deseas probar su funcionamiento completo, no dudes en escribirme: 👉 
-<a href="https://www.linkedin.com/in/antonyzarate/" target="_blank">
-  Antony Zarate Davila
-</a>
+Si deseas probar su funcionamiento completo, no dudes en escribirme: 👉 [Antony Zarate Davila](https://www.linkedin.com/in/antonyzarate/)
 
 ![Aviso](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_2.png)
 
@@ -36,7 +30,6 @@ Si deseas probar su funcionamiento completo, no dudes en escribirme: 👉
 ## 📱 Interfaz
 
 La aplicación cuenta con una interfaz diseñada especialmente para **dispositivos móviles**, lo que garantiza una mejor experiencia de uso en celulares, de esta manera, cualquier vendedor puede **registrar clientes desde cualquier lugar**, necesitando únicamente una conexión a internet.  
-
 
 Ademas el sistema cuenta con credenciales predefinidas para acceder como diferentes vendedores.  
 
@@ -64,14 +57,46 @@ Por ello opté por desarrollarla con **HTML, CSS y JavaScript** en lugar de leng
 
 ## 🗄️ Base de Datos
 
-Al evaluar distintas opciones de bases de datos como **MySQL**, **SQL Server**, **PostgreSQL** o incluso **Microsoft Excel**, opté por **Google Sheets** debido a su **simplicidad** y a la facilidad de uso de su propia **API gratuita**.  
-La decisión también se tomó porque la persona encargada de gestionar la base de datos (mi primo 😅) no tiene experiencia con sistemas más avanzados como SQL, y con Google Sheets el proceso resulta mucho más accesible.  
+Al evaluar distintas opciones de bases de datos como **MySQL**, **SQL Server**, **PostgreSQL** o incluso **Microsoft Excel**, opté por **Google Sheets** debido a su **simplicidad** y a la facilidad de uso de su propia **API gratuita**. 
+
+Que por ejemplo de la hoja llamada **"Sellers"** tiene la siguiente estructura:
+```
+{
+  "range": "sellers!B1:B1000",
+  "majorDimension": "ROWS",
+  "values": [
+    [
+      "name"
+    ],
+    [
+      "admin"
+    ],
+    [
+      "Carlos"
+    ],
+    [
+      "Cielo"
+    ],
+    [
+      "Raul"
+    ],
+    [
+      "Tia Rosa"
+    ]
+  ]
+}
+```
+La decisión también se tomó porque la persona encargada de gestionar la base de datos (un familiar 😅) no tiene experiencia con sistemas más avanzados como SQL, y con Google Sheets el proceso resulta mucho más accesible.  
 
 Otra ventaja clave de usar Google Sheets es su capacidad de **trabajo colaborativo**, lo que permite compartir y editar la base de datos fácilmente a través de un enlace.  
-De hecho, tú mismo puedes revisarla en el siguiente link 👉 
-<a href="https://docs.google.com/spreadsheets/d/1r4CeqEpV315mvCQMy7M77fppCwdX2mW4sC_5ZvUJQNo/edit?usp=sharing" target="_blank">
-  📊 Base de Datos Google Sheets
-</a>
-
+De hecho, tú mismo puedes revisarla en el siguiente link 👉 [📊 Base de Datos Google Sheets](https://docs.google.com/spreadsheets/d/1r4CeqEpV315mvCQMy7M77fppCwdX2mW4sC_5ZvUJQNo/edit?usp=sharing)
 
 ![BD](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_4.png)
+
+## 🍗 Imágenes de la Actividad
+
+El desarrollo de esta aplicación web surgió como apoyo a la actividad de un familiar, ya que decidí voluntariamente crear una herramienta que le permitiera **gestionar de forma más organizada la venta de parrilladas y polladas**.  
+Gracias a esta aplicación, pudo dejar atrás los registros manuales en papel y comenzar a llevar sus cuentas de una manera **más práctica, moderna y automatizada**, reduciendo tiempos de trabajo y mejorando el control de ingresos.
+
+![Actividad](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_5.png)
+
