@@ -16,7 +16,7 @@
 El funcionamiento de la aplicación web depende de la **activación del servidor (API)** alojado en **Railway**.  
 Esto significa que, para acceder y probar todas las funcionalidades de la aplicación, es necesario que el servidor esté encendido.  
 
-Si deseas probar su funcionamiento completo, no dudes en escribirme: 👉 [Antony Zárate Dávila](https://www.linkedin.com/in/antonyzarate/)
+Si deseas probar su funcionamiento completo, no dudes en escribirme: 👉 [Antony Zarate Davila](https://www.linkedin.com/in/antonyzarate/)
 
 ![Aviso](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_2.png)
 
@@ -27,5 +27,11 @@ Si deseas probar su funcionamiento completo, no dudes en escribirme: 👉 [Anton
 - 🔎 Búsqueda y filtrado de clientes
 - 🎨 Interfaz amigable y responsiva
 
+## 📱 Interfaz
 
+La aplicación cuenta con una interfaz diseñada especialmente para **dispositivos móviles**, lo que garantiza una mejor experiencia de uso en celulares.  
+De esta manera, cualquier vendedor puede **registrar clientes desde cualquier lugar**, necesitando únicamente una conexión a internet.  
 
+Opté por desarrollarla con **HTML, CSS y JavaScript** en lugar de lenguajes como **Java o Kotlin** (enfocados en aplicaciones móviles nativas), ya que tenía experiencia previa con estas tecnologías y, al ser un proyecto pequeño con necesidad de entrega rápida, resultaba más práctico y eficiente.
+
+![Interfaz](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_3.png)
