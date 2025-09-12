@@ -9,14 +9,28 @@
 
 > Una aplicación web intuitiva para el registro de clientes y la gestión de ventas, desarrollada con **HTML, CSS y JavaScript**.
 > A través de un servidor alojado en **Railway**, la aplicación se conecta a una base de datos en **Google Sheets**, lo que permite **capturar y almacenar los datos de los clientes directamente desde la interfaz web**.
-> Puedes acceder a la aplicación en el siguiente enlace: 👉 [sales-manegement-antony](https://sales-manegement-antony.netlify.app/)
+> Puedes acceder a la aplicación en el siguiente enlace: 👇👇👇
+
+<p align="center">
+  <a href="https://sales-manegement-antony.netlify.app/" target="_blank" 
+     style="border:2px solid #2196F3; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:bold;">
+     🌐 sales-manegement-antony
+  </a>
+</p>
 
 ## ⚠️ Importante
 
 El funcionamiento de la aplicación web depende de la **activación del servidor (API)** alojado en **Railway**.  
 Esto significa que, para acceder y probar todas las funcionalidades de la aplicación, es necesario que el servidor esté encendido.  
 
-Si deseas probar su funcionamiento completo, no dudes en escribirme: 👉 [Antony Zarate Davila](https://www.linkedin.com/in/antonyzarate/)
+Si deseas probar su funcionamiento completo, no dudes en escribirme: 👇👇👇
+
+<p align="center">
+  <a href="https://www.linkedin.com/in/antonyzarate/" target="_blank" 
+     style="border:2px solid #2196F3; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:bold;">
+    Antony Zarate Davila
+  </a>
+</p>
 
 ![Aviso](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_2.png)
 
@@ -89,7 +103,14 @@ Que por ejemplo de la hoja llamada **"Sellers"** tiene la siguiente estructura:
 La decisión también se tomó porque la persona encargada de gestionar la base de datos (un familiar 😅) no tiene experiencia con sistemas más avanzados como SQL, y con Google Sheets el proceso resulta mucho más accesible.  
 
 Otra ventaja clave de usar Google Sheets es su capacidad de **trabajo colaborativo**, lo que permite compartir y editar la base de datos fácilmente a través de un enlace.  
-De hecho, tú mismo puedes revisarla en el siguiente link 👉 [📊 Base de Datos Google Sheets](https://docs.google.com/spreadsheets/d/1r4CeqEpV315mvCQMy7M77fppCwdX2mW4sC_5ZvUJQNo/edit?usp=sharing)
+De hecho, tú mismo puedes revisarla en el siguiente link. 👇👇👇
+
+<p align="center">
+  <a href="https://docs.google.com/spreadsheets/d/1r4CeqEpV315mvCQMy7M77fppCwdX2mW4sC_5ZvUJQNo/edit?usp=sharing" target="_blank" 
+     style="border:2px solid #2196F3; padding:10px 20px; border-radius:8px; text-decoration:none; font-weight:bold;">
+    📊 Base de Datos Google Sheets
+  </a>
+</p>
 
 ![BD](https://github.com/anton-zd/Aplicacion_Web_para_Registro_de_Clientes_y_Control_de_Ventas/blob/main/assets/readme_files/image_4.png)
 
